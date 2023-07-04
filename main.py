@@ -17,13 +17,18 @@ pygame.init()
 sc = pygame.display.set_mode([RES, RES])
 clock = pygame.time. Clock()
 font_score = pygame.font.SysFont('Arial', 26, bold=True)
+font_end = pygame.font.SysFont('Arial', 66, bold=True)
+img = pygame.image.load('1.jpeg').convert()
+img2 = pygame.image.load('2.jpg').convert()
 
 
 while True:
-    sc.fill(pygame.Color('black'))
+    sc.blit(img, (0, 0))
     # рисуем змею
-    [(pygame.draw.rect(sc, pygame.Color('green'), (i, j, SIZE, SIZE)))for i, j in snake]
+    [(pygame.draw.rect(sc, pygame.Color('green'), (i, j, SIZE - 2, SIZE - 2)))for i, j in snake]
     pygame.draw.rect(sc, pygame.Color('Cyan'),(*apple, SIZE,SIZE))
+    # создаем картинку того что мы будем собирать
+    sc.blit(img2, (*apple, SIZE, SIZE))
     # вывод очков
     render_score = font_score.render(f'Ваш счет: {score}', 1, pygame.Color('orange'))
     sc.blit(render_score, (5, 5))
@@ -41,7 +46,13 @@ while True:
 
     # игра окончена
     if x < 0 or x > RES - SIZE or y < 0 or y > RES - SIZE or len(snake) != len(set(snake)):
-        break
+        while True:
+            render_end = font_end.render('Игра окончена', 1, pygame.Color('orange'))
+            sc.blit(render_end, (RES // 2 - 200, RES // 3))
+            pygame.display. flip()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    exit()
 
     pygame.display.flip()
     clock.tick(fps)
