@@ -11,7 +11,7 @@ length = 1
 snake = [(x,y)]
 dx, dy = 0, 0
 score = 0
-fps = 5
+fps = 7
 
 pygame.init()
 sc = pygame.display.set_mode([RES, RES])
@@ -20,6 +20,9 @@ font_score = pygame.font.SysFont('Arial', 26, bold=True)
 font_end = pygame.font.SysFont('Arial', 66, bold=True)
 img = pygame.image.load('1.jpeg').convert()
 img2 = pygame.image.load('2.jpg').convert()
+pygame.display.set_caption('Змейка')    # имя приложения
+icon = pygame.image.load('icon.png')    # иконка
+pygame.display.set_icon(icon)
 
 
 while True:
